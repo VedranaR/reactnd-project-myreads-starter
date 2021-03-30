@@ -14,6 +14,7 @@ updateQuery = (query) => {
 render() { 
     const { books } = this.props;
     const { query } = this.state;
+    const {onUpdateBookStatus} = this.props;
 
     let showingBooks = books.filter(book => book["authors"].join().includes(query) || book["title"].includes(query));
 
@@ -40,14 +41,17 @@ render() {
                 <BookShelf 
                     title = "Currently Reading"
                     books={showingBooks.filter(book => book["shelf"] === "currentlyReading")}
+                    onUpdateBookStatus = {onUpdateBookStatus}
                 />
                 <BookShelf 
                     title = "Want To Read"
                     books={showingBooks.filter(book => book["shelf"] === "wantToRead")}
+                    onUpdateBookStatus = {onUpdateBookStatus}
                 />
                 <BookShelf 
                     title = "Read"
                     books={showingBooks.filter(book => book["shelf"] === "read")}
+                    onUpdateBookStatus = {onUpdateBookStatus}
                 />
             </div>}
         </div>
