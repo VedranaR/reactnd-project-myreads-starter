@@ -15,14 +15,21 @@ class BooksApp extends Component {
       this.setState({books: books})
     })
   }
-//"shelf": "currentlyReading"
-  /*onUpdateBookStatus = (book, status) => {
-    this.setState((prevState) => (
-      {
-        books
+
+  onUpdateBookStatus = (book, shelf) => {
+    BooksAPI.update(book,shelf);
+    const updatedBooks = this.state.books.map(b => {
+      if (b.id === book.id) {
+        b.shelf = shelf;
       }
-    ))
-  }*/
+      return b;
+    });
+
+    this.setState({
+      books: updatedBooks,
+    });
+    
+  }
 
   render() {
     return (
@@ -40,6 +47,7 @@ class BooksApp extends Component {
           <Route exact path='/' render={() => (
             <HomePage 
             books={this.state.books}
+            onUpdateBookStatus = {this.onUpdateBookStatus}
             />
           )} />
           <Link 
